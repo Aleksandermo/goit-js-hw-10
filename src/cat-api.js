@@ -4,11 +4,11 @@ axios.defaults.headers.common["x-api-key"] = API_KEY;
 
 const showLoader = () => {
  const loader = document.querySelector('.loader');
-  loader.style.display = 'block'; // Wyświetl animację ładowania
+  loader.style.display = 'block';
 };
 const hideLoader = () => {
   const loader = document.querySelector('.loader');
-  loader.style.display = 'none'; // Ukryj animację ładowania
+  loader.style.display = 'none';
 };
 const showError = (message) => {
   const errorElement = document.querySelector('.error');
@@ -20,27 +20,19 @@ const hideError = () => {
   errorElement.style.display = 'none';
 };
 const fetchBreeds = () => {
-  // Wyświetl loader i ukryj ewentualne błędy
   showLoader();
   hideError();
 
   return axios.get("https://api.thecatapi.com/v1/breeds")
     .then(response => {
-      // Ukryj loader po odebraniu odpowiedzi
       hideLoader();
-      // Przetwórz dane otrzymane z serwera
       const breeds = response.data;
-      // Wypełnij select.breed-select opcjami
       fillBreedsSelect(breeds);
-      // Zwróć dane otrzymane z serwera
       return breeds;
     })
     .catch(error => {
-      // Ukryj loader w przypadku błędu
       hideLoader();
-      // Wyświetl błąd
       showError("Wystąpił błąd podczas pobierania ras: " + error.message);
-      // Odrzuć obietnicę, aby obsłużyć błąd na wyższym poziomie
       throw error;
     });
 };
@@ -54,7 +46,6 @@ const fillBreedsSelect = (breeds) => {
     selectElement.appendChild(option);
   });
 };
-
 const fetchCatByBreed = (breedId) => {
   return axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(response => {
@@ -65,5 +56,4 @@ const fetchCatByBreed = (breedId) => {
       throw error;
     });
 };
-
 export { fetchBreeds, fillBreedsSelect, fetchCatByBreed, showLoader, hideLoader };

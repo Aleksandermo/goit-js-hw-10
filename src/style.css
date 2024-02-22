@@ -38,13 +38,11 @@
   border-radius: 50%;
   animation: rotate 0.5s linear infinite;
 }
-
 @keyframes rotate {
   to {
     transform: translate(-50%, -55%) rotate(-45deg) rotateY(360deg);
   }
 }
-
 .cat-info img {
   max-height: 400px;
   width: auto;
