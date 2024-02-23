@@ -1,4 +1,6 @@
 import axios from "axios";
+import Notiflix from 'notiflix';
+
 const API_KEY = "live_4r2pEDDPlC874ZavAPrFAx3tbspmQ9t3PPOokFzL8tkbXG21Ww3kHKu8QGCSNyui";
 axios.defaults.headers.common["x-api-key"] = API_KEY;
 
@@ -11,9 +13,7 @@ const hideLoader = () => {
   loader.style.display = 'none';
 };
 const showError = (message) => {
-  const errorElement = document.querySelector('.error');
-  errorElement.textContent = message;
-  errorElement.style.display = 'block';
+ Notiflix.Notify.failure('Błąd! ' + message);
 };
 const hideError = () => {
   const errorElement = document.querySelector('.error');
@@ -32,7 +32,7 @@ const fetchBreeds = () => {
     })
     .catch(error => {
       hideLoader();
-      showError("Wystąpił błąd podczas pobierania ras: " + error.message);
+       Notiflix.Notify.failure('Błąd! Wystąpił problem podczas pobierania ras: ' + error.message);
       throw error;
     });
 };
@@ -53,6 +53,7 @@ const fetchCatByBreed = (breedId) => {
       return catData;
     })
     .catch(error => {
+       Notiflix.Notify.failure('Błąd! Wystąpił problem podczas pobierania informacji o kocie: ' + error.message);
       throw error;
     });
 };
